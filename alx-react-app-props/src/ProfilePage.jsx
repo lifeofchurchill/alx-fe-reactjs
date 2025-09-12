@@ -1,6 +1,8 @@
+// ProfilePage.jsx
 import UserInfo from './UserInfo';
 
-function ProfilePage({ userData }) {
+function ProfilePage() {
+  // No props needed anymore
   return <UserInfo />;
 }
 

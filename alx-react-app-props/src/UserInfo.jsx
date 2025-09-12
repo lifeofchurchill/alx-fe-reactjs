@@ -1,6 +1,8 @@
+// UserInfo.jsx
 import UserDetails from './UserDetails';
 
-function UserInfo({ userData }) {
+function UserInfo() {
+  // No props needed
   return <UserDetails />;
 }
 
