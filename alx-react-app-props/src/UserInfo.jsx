@@ -2,8 +2,7 @@
 import UserDetails from './UserDetails';
 
 function UserInfo() {
-  // No props needed
-  return <UserDetails />;
+  return <UserDetails />; // no props needed
 }
 
 export default UserInfo;
