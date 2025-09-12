@@ -1,9 +1,9 @@
-// UserDetails.jsx
-import { useContext } from "react";
-import UserContext from "./UserContext"; // default import
+// UserProfile.jsx
+import React, { useContext } from "react";
+import UserContext from "./UserContext";
 
-function UserDetails() {
-  const userData = useContext(UserContext); // grab data directly
+function UserProfile() {
+  const userData = useContext(UserContext); // consume context
 
   return (
     <div>
@@ -13,4 +13,4 @@ function UserDetails() {
   );
 }
 
-export default UserDetails;
+export default UserProfile;
