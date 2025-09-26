@@ -1,34 +1,36 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeList from './components/RecipeList';
-import RecipeDetails from './components/RecipeDetails';
-import EditRecipeForm from './components/EditRecipeForm';
+import RecipeDetailsWrapper from './components/RecipeDetailsWrapper';
+import EditRecipeFormWrapper from './components/EditRecipeFormWrapper';
 
 function App() {
   return (
-    <div style={{ padding: 16 }}>
-      <header>
-        <h1><Link to="/">🍲 Recipe Sharing App</Link></h1>
-      </header>
+    <Router>
+      <div style={{ padding: 16 }}>
+        <header>
+          <h1><Link to="/">🍲 Recipe Sharing App</Link></h1>
+        </header>
 
-      {/* put the add form at the top so users can add from anywhere */}
-      <AddRecipeForm />
+        {/* put the add form at the top so users can add from anywhere */}
+        <AddRecipeForm />
 
-      <main style={{ marginTop: 24 }}>
-        <Routes>
-          {/* main list */}
-          <Route path="/" element={<RecipeList />} />
+        <main style={{ marginTop: 24 }}>
+          <Routes>
+            {/* main list */}
+            <Route path="/" element={<RecipeList />} />
 
-          {/* recipe details */}
-          <Route path="/recipes/:id" element={<RecipeDetails />} />
+            {/* recipe details */}
+            <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
 
-          {/* edit form */}
-          <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
-        </Routes>
-      </main>
-    </div>
+            {/* edit form */}
+            <Route path="/recipes/:id/edit" element={<EditRecipeFormWrapper />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
