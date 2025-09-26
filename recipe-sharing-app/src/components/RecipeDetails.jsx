@@ -1,5 +1,5 @@
 // RecipeDetails.js
-import { useRecipeStore } from './recipeStoretemptemp';
+import { useRecipeStore } from './recipeStore';
 import EditRecipeForm from './EditRecipeForm';
 import DeleteRecipeButton from './DeleteRecipeButton';
 
