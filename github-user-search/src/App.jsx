@@ -3,11 +3,13 @@ import { Routes, Route, Link } from "react-router-dom";
 import Homepage from "./components/Home";
 import Aboutpage from "./components/About";
 import Dashboard from "./components/Dashboard";
+import Search from "./components/search";
 
 function App() {
   return (
       <div>
         <Dashboard />
+        <Search />
 
         <nav style={{
           backgroundColor: '#f0f0f0',
