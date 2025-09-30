@@ -1,155 +1,76 @@
-import { useState } from 'react';
-import { fetchUserData } from '../services/githubService';
+import React, { useState } from "react";
+import { fetchAdvancedUsers } from "./githubService";
 
 function Search() {
-    const [username, setUsername] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [userData, setUserData] = useState(null);
+  const [username, setUsername] = useState("");
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [users, setUsers] = useState([]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        // Validate input
-        if (!username.trim()) {
-            setError('Please enter a username');
-            return;
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await fetchAdvancedUsers({ username, location, minRepos });
+      setUsers(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-        setLoading(true);
-        setError(null);
-        setUserData(null);
+  return (
+    <div className="max-w-xl mx-auto mt-10">
+      <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-white rounded shadow">
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="GitHub Username"
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Location (optional)"
+          className="w-full p-2 border rounded"
+        />
+        <input
+          type="number"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          placeholder="Minimum Repositories"
+          className="w-full p-2 border rounded"
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        >
+          Search
+        </button>
+      </form>
 
-        try {
-            const data = await fetchUserData(username);
-
-            setUserData(data);
-        } catch (err) {
-            setError("Looks like we cant find the user");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
-            <h1>GitHub User Search</h1>
-            
-            {/* Search Form */}
-            <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter GitHub username"
-                        style={{
-                            flex: 1,
-                            padding: '10px',
-                            fontSize: '16px',
-                            border: '1px solid #ccc',
-                            borderRadius: '5px'
-                        }}
-                    />
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                            padding: '10px 20px',
-                            fontSize: '16px',
-                            backgroundColor: '#0366d6',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: loading ? 'not-allowed' : 'pointer'
-                        }}
-                    >
-                        {loading ? 'Searching...' : 'Search'}
-                    </button>
-                </div>
-            </form>
-
-            {/* Error Display */}
-            {error && (
-                <div style={{
-                    padding: '10px',
-                    backgroundColor: '#f8d7da',
-                    color: '#721c24',
-                    borderRadius: '5px',
-                    marginBottom: '20px'
-                }}>
-                    {error}
-                </div>
-            )}
-
-            {/* User Data Display */}
-            {userData && (
-                <div style={{
-                    border: '1px solid #e1e4e8',
-                    borderRadius: '10px',
-                    padding: '20px',
-                    backgroundColor: 'white'
-                }}>
-                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                        <img 
-                            src={userData.avatar_url} 
-                            alt={userData.login}
-                            style={{ 
-                                width: '100px', 
-                                height: '100px', 
-                                borderRadius: '50%' 
-                            }}
-                        />
-                        <div>
-                            <h2 style={{ margin: '0 0 5px 0' }}>{userData.name || userData.login}</h2>
-                            <p style={{ margin: '0', color: '#586069' }}>@{userData.login}</p>
-                            {userData.bio && <p style={{ marginTop: '10px' }}>{userData.bio}</p>}
-                        </div>
-                    </div>
-                    
-                    <div style={{ 
-                        display: 'flex', 
-                        gap: '20px', 
-                        marginTop: '20px',
-                        paddingTop: '20px',
-                        borderTop: '1px solid #e1e4e8'
-                    }}>
-                        <div>
-                            <strong>{userData.public_repos}</strong>
-                            <p style={{ margin: '5px 0 0 0', color: '#586069' }}>Repositories</p>
-                        </div>
-                        <div>
-                            <strong>{userData.followers}</strong>
-                            <p style={{ margin: '5px 0 0 0', color: '#586069' }}>Followers</p>
-                        </div>
-                        <div>
-                            <strong>{userData.following}</strong>
-                            <p style={{ margin: '5px 0 0 0', color: '#586069' }}>Following</p>
-                        </div>
-                    </div>
-
-                    {userData.html_url && (
-                        <a 
-                            href={userData.html_url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            style={{
-                                display: 'inline-block',
-                                marginTop: '20px',
-                                padding: '8px 16px',
-                                backgroundColor: '#0366d6',
-                                color: 'white',
-                                textDecoration: 'none',
-                                borderRadius: '5px'
-                            }}
-                        >
-                            View on GitHub
-                        </a>
-                    )}
-                </div>
-            )}
+      {users && (
+        <div className="grid gap-4 mt-4">
+          {users.map((user) => (
+            <div key={user.id} className="p-4 border rounded flex items-center space-x-4">
+              <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
+              <div>
+                <h2 className="text-lg font-bold">{user.login}</h2>
+                <a
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  View Profile
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default Search;
