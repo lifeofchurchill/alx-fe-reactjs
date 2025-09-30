@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function fetchAdvancedUsers({ username, location, minRepos }) {
+export async function fetchUserData({ username, location, minRepos }) {
   try {
     let query = "";
 
@@ -8,7 +8,6 @@ export async function fetchAdvancedUsers({ username, location, minRepos }) {
     if (location) query += `location:${location}+`;
     if (minRepos) query += `repos:>${minRepos}+`;
 
-    // remove trailing +
     query = query.trim().replace(/\+$/, "");
 
     const response = await axios.get(
