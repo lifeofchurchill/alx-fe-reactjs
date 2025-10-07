@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Jollof",
+        "summary": "Jollof, or jollof rice, is a rice dish from West Africa. The dish is typically made with long-grain rice, tomatoes, chilis, onions, spices, and sometimes other vegetables and/or meat in a single pot, although its ingredients and preparation methods vary across different regions. The dish originated in Senegal.",
+        "image": "https://kikifoodies.com/wp-content/uploads/2024/11/ET5B7570-8-scaled.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Waakye",
+        "summary": "Waakye is a popular Ghanaian dish consisting of cooked rice and beans, typically black-eyed peas, often with a distinctive purple hue from the sorghum or soum leaves.",
+        "image": "https://i0.wp.com/www.azmerarestaurant.com/wp-content/uploads/2023/05/Azmera-Waakye-2-jpg.webp?fit=1000%2C1000&ssl=1"
+    },
+    {
+        "id": 3,
+        "title": "fufu",
+        "summary": "Fufu is a traditional West African starchy food made from cassava, yams, or plantains that are boiled, pounded, and molded into a dough.",
+        "image": "https://miro.medium.com/1*XDjyQ6dBVMdybEySuQlHGw.jpeg"
+    },
+    {
+        "id": 4,
+        "title": "Omo-tuo",
+        "summary": "Omo tuo is a Ghanaian staple food made with rice. Mostly, 'broken rice' or long grain rice broken into smaller pieces is used.",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ4SxklY2lemKZDYwWEXHlMnpr8hXhARLziA&s"
+    }
+]
